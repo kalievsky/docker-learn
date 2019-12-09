@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+
+  backend:
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./backend/src:/usr/src/app
+      - /usr/src/app/node_modules
+    entrypoint: npm run watch
+
+#  proxy:
+#    environment:
+#      - NODE_ENV=development
+#    volumes:
+#      - ./proxy/src:/usr/src/app
+#    entrypoint: npm run watch
+#
+#  frontend:
+#    environment:
+#      - NODE_ENV=development
+#    volumes:
+#      - ./frontend/src:/usr/src/app
+#    entrypoint: npm run watch

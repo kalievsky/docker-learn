@@ -8,39 +8,27 @@ services:
       dockerfile: Dockerfile
     image: docker-learn__backend-image
     container_name: docker-learn__backend-container
-    volumes:
-      - ./backend/src:/usr/src/app
-      - /usr/src/app/node_modules
-    environment:
-      NODE_ENV: development
-    entrypoint: npm run watch
 
-  proxy:
-    build:
-      context: ./proxy
-      dockerfile: Dockerfile
-    image: docker-learn__proxy-image
-    container_name: docker-learn__proxy-container
-    volumes:
-      - ./proxy/src:/usr/src/app
-      - /usr/src/app/node_modules
-    environment:
-      NODE_ENV: development
-    ports:
-      - 3031:3001
-    entrypoint: npm run watch
-    links:
-      - backend:back
-
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    image: docker-learn__frontend-image
-    container_name: docker-learn__frontend-container
-    volumes:
-      - ./frontend/src:/usr/src/app
-      - /usr/src/app/node_modules
-    environment:
-      NODE_ENV: development
-    entrypoint: npm run start
+#  proxy:
+#    build:
+#      context: ./proxy
+#      dockerfile: Dockerfile
+#    image: docker-learn__proxy-image
+#    container_name: docker-learn__proxy-container
+#    volumes:
+#      - /usr/src/app/node_modules
+#    ports:
+#      - 3031:3001
+#    entrypoint: npm run start
+#    links:
+#      - backend:back
+#
+#  frontend:
+#    build:
+#      context: ./frontend
+#      dockerfile: Dockerfile
+#    image: docker-learn__frontend-image
+#    container_name: docker-learn__frontend-container
+#    volumes:
+#      - /usr/src/app/node_modules
+#    entrypoint: npm run start
