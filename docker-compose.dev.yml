@@ -1,25 +1,21 @@
-version: "3"
+version: "3.7"
 
 services:
 
   backend:
+    build:
+      dockerfile: dev.Dockerfile
     environment:
       - NODE_ENV=development
-    volumes:
-      - ./backend/src:/usr/src/app
-      - /usr/src/app/node_modules
     entrypoint: npm run watch
 
-#  proxy:
-#    environment:
-#      - NODE_ENV=development
-#    volumes:
-#      - ./proxy/src:/usr/src/app
-#    entrypoint: npm run watch
-#
-#  frontend:
-#    environment:
-#      - NODE_ENV=development
-#    volumes:
-#      - ./frontend/src:/usr/src/app
-#    entrypoint: npm run watch
+  proxy:
+    build:
+      dockerfile: dev.Dockerfile
+    environment:
+      - NODE_ENV=development
+    entrypoint: npm run watch
+
+  frontend:
+    environment:
+      - NODE_ENV=development
