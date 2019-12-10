@@ -20,7 +20,7 @@ services:
       - ./proxy/src:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - 3031:3001
+      - 80:80
     links:
       - backend:back
 

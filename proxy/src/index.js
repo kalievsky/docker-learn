@@ -4,7 +4,7 @@ const app = express();
 const request = require('request');
 
 app.use('/api', (req, res) => {
-  request(`http://back:3000${req.url}`, (error, response, body) => {
+  request(`http://back${req.url}`, (error, response, body) => {
     if (error) {
       res.send(error);
       return;
@@ -15,7 +15,7 @@ app.use('/api', (req, res) => {
 });
 
 app.use('/', (req, res) => {
-  request(`http://frontend:3002${req.url}`, (error, response, body) => {
+  request(`http://frontend${req.url}`, (error, response, body) => {
     if (error) {
       res.send(error);
       return;
@@ -31,4 +31,4 @@ app.use('*', (req, res) => {
   res.send(error);
 });
 
-app.listen(3001);
+app.listen(80);
