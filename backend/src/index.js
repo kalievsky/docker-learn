@@ -1,11 +1,31 @@
 const express = require('express');
-const app = express();
+const bodyParser = require('body-parser');
+const {sequelize, User} = require('./sequelize.js');
 
-app.get('/user', (req, res) => {
-  res.json({
-    id: 1,
-    name: 'John Doe',
-  });
+const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.get('/user-list', (req, res) => {
+  User.findAll()
+    .then(userList => {
+      res.json(userList);
+    })
+});
+
+app.post('/user', (req, res) => {
+  if (!req.body.name) {
+    res.status(400);
+    res.json();
+    return;
+  }
+
+  User.create({
+    name: req.body.name,
+  })
+    .then(() => {
+      res.json({});
+    })
 });
 
 app.use('*', (req, res) => {

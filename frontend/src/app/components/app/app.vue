@@ -5,11 +5,12 @@
     ipsum, iusto maxime nam nihil nobis optio ratione repellendus rerum velit voluptate! Repellat, veniam?
   </p>
   <p>
-    <button @click="getData">
-      get data ррр
+    <input type="text" v-model="userName">
+    <button @click="addUser">
+      Add new user
     </button>
   </p>
-  <pre>{{user}}</pre>
+  <pre>{{userList}}</pre>
 </div>
 </template>
 
@@ -19,17 +20,41 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      user: null,
+      userName: null,
+      userList: [],
     };
   },
 
+  mounted() {
+    this.getUserList();
+  },
+
   methods: {
-    getData() {
-      axios.get('/api/user')
+    addUser() {
+      if (!this.userName || this.userName === '') {
+        return;
+      }
+
+      axios.post('/api/user', {
+        name: this.userName,
+      })
+        .then(response => {
+          this.userName = null;
+          this.getUserList();
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    },
+
+    getUserList() {
+      axios.get('/api/user-list')
         .then(({data}) => {
-          if (data) {
-            this.user = data;
+          if (!data) {
+            return Promise.reject(new Error('No Data received'));
           }
+
+          this.userList = data;
         })
         .catch(error => {
           console.error(error);

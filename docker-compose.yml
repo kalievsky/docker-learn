@@ -2,6 +2,15 @@ version: "3.7"
 
 services:
 
+  db:
+    build:
+      context: ./db
+    image: docker-learn__db-image
+    container_name: docker-learn__db-container
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+
   backend:
     build:
       context: ./backend
