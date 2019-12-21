@@ -19,3 +19,4 @@ services:
   frontend:
     environment:
       - NODE_ENV=development
+    entrypoint: npm run dev-server

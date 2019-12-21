@@ -30,4 +30,17 @@ module.exports = {
             },
         ],
     },
+    devServer: {
+        contentBase: path.join(__dirname),
+        host: 'frontend',
+        // host: '0.0.0.0',
+        port: 3000,
+        historyApiFallback: {
+            index: path.join(__dirname, 'index.html'),
+        },
+        sockHost: 'localhost',
+        // proxy: {
+        //     '/': 'http://localhost:3000',
+        // },
+    }
 };

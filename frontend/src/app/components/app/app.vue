@@ -6,7 +6,7 @@
   </p>
   <p>
     <button @click="getData">
-      get data
+      get data ррр
     </button>
   </p>
   <pre>{{user}}</pre>
@@ -32,8 +32,8 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error);
-        })
+          console.error(error);
+        });
     },
   },
 };

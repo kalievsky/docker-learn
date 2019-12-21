@@ -1,34 +1,23 @@
 const express = require('express');
-const app = express();
+const http = require('http');
+const httpProxy = require('http-proxy');
 
-const request = require('request');
+const app = express();
+const proxyBackend = httpProxy.createProxyServer({ target: 'http://back' });
+const proxyFrontend = httpProxy.createProxyServer({ target: 'http://frontend:3000', ws: true });
+const server = http.createServer(app);
 
 app.use('/api', (req, res) => {
-  request(`http://back${req.url}`, (error, response, body) => {
-    if (error) {
-      res.send(error);
-      return;
-    }
-
-    res.json(JSON.parse(body));
-  });
-});
-
-app.use('/', (req, res) => {
-  request(`http://frontend${req.url}`, (error, response, body) => {
-    if (error) {
-      res.send(error);
-      return;
-    }
-
-    res.send(body);
-  });
+  proxyBackend.web(req, res, {});
 });
 
 app.use('*', (req, res) => {
-  const error = new Error('Not found');
-  error.status = 404;
-  res.send(error);
+  req.url = req.originalUrl;
+  proxyFrontend.web(req, res, {});
 });
 
-app.listen(80);
+server.on('upgrade', (req, socket, head) => {
+  proxyFrontend.ws(req, socket, head);
+});
+
+server.listen(80);

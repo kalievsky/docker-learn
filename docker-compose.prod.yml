@@ -21,3 +21,4 @@ services:
   frontend:
     environment:
       - NODE_ENV=production
+    entrypoint: npm run start

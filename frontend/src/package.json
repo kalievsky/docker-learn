@@ -8,7 +8,8 @@
     "watch": "nodemon -L index.js",
     "frontend:prod": "webpack --mode production",
     "frontend:dev": "webpack --mode development",
-    "frontend:watch": "webpack --mode development --watch"
+    "frontend:watch": "webpack --mode development --watch",
+    "dev-server": "webpack-dev-server --hot"
   },
   "author": "",
   "license": "ISC",
@@ -24,6 +25,7 @@
     "vue-loader": "^15.7.2",
     "vue-template-compiler": "^2.6.10",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
   }
 }
